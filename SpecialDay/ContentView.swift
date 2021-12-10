@@ -10,14 +10,21 @@ import SwiftUI
 struct ContentView: View {
     
     @State var monthGuess: Double = 6.0
-    let target = 2
+    let target1 = 2
+    
+    @State var dateGuess: Double = 1.0
+    let target2 = 18
     
     @State var feedback = ""
     
+    
     var body: some View {
-        VStack{
+        VStack (alignment:.leading, spacing: 10){
             
+        
             Text("Month")
+                .font(.title)
+                .padding(.bottom, 3)
             
             Slider(value: $monthGuess,
                    in: 1.0...12.0,
@@ -26,29 +33,52 @@ struct ContentView: View {
                 Text("Guess")
             },
                    minimumValueLabel: {
-                Text("1.0")
+                Text("1")
             },
                    maximumValueLabel: {
-                Text("12.0")
+                Text("12")
             })
                 .padding()
             
             Text ("\(String(format: "%.f", monthGuess))")
              
             
+            Stepper("Date",
+                    value: $dateGuess,
+                    in: 1.0...31.0,
+                    step: 1.0)
+                .font(.title)
+                .padding(.bottom, 3)
+            
+            Text ("\(String(format: "%.f", dateGuess))")
+            
+            
             Button(action: {
                 
                 let monthGuessAsInteger = Int(monthGuess)
                 
-                if monthGuessAsInteger < target {
+                if monthGuessAsInteger < target1 {
                     feedback = "After"
                 }
-                else if monthGuessAsInteger > target {
+                else if monthGuessAsInteger > target1 {
                     feedback = "Before"
                 }
-                else if monthGuessAsInteger == target {
+                else if monthGuessAsInteger == target1 {
                     feedback = "Special"
                 }
+                
+                let dateGuessAsInteger = Int(dateGuess)
+                
+                if dateGuessAsInteger < target2 {
+                    feedback = "After"
+                }
+                else if dateGuessAsInteger > target2 {
+                    feedback = "Before"
+                }
+                else if dateGuessAsInteger == target2 {
+                    feedback = "Special"
+                }
+                
             }, label: {
                 Text("Submit")
             })
@@ -64,8 +94,8 @@ struct ContentView: View {
             
         }
         .navigationTitle("SpecialDay")
+        .padding(.horizontal)
     }
-       
 }
 
 struct ContentView_Previews: PreviewProvider {
