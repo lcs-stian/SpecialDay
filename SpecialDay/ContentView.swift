@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var monthGuess: Double = 6.0
+    @State var monthGuess: Double = 1.0
     let target1 = 2
     
     @State var dateGuess: Double = 1.0
@@ -21,7 +21,7 @@ struct ContentView: View {
     var body: some View {
         VStack (alignment:.leading, spacing: 10){
             
-        
+            
             Text("Month")
                 .font(.title)
                 .padding(.bottom, 3)
@@ -39,9 +39,12 @@ struct ContentView: View {
                 Text("12")
             })
                 .padding()
+    
             
             Text ("\(String(format: "%.f", monthGuess))")
              
+                .font(.largeTitle)
+                .padding()
             
             Stepper("Date",
                     value: $dateGuess,
@@ -52,30 +55,46 @@ struct ContentView: View {
             
             Text ("\(String(format: "%.f", dateGuess))")
             
+                .font(.largeTitle)
+                .padding()
             
             Button(action: {
                 
                 let monthGuessAsInteger = Int(monthGuess)
                 
-                if monthGuessAsInteger < target1 {
-                    feedback = "After"
-                }
-                else if monthGuessAsInteger > target1 {
-                    feedback = "Before"
-                }
-                else if monthGuessAsInteger == target1 {
-                    feedback = "Special"
-                }
-                
                 let dateGuessAsInteger = Int(dateGuess)
                 
-                if dateGuessAsInteger < target2 {
-                    feedback = "After"
-                }
-                else if dateGuessAsInteger > target2 {
+                
+                
+                if monthGuessAsInteger < target1 {
                     feedback = "Before"
                 }
+                
+                
+                else if monthGuessAsInteger > target1 {
+                    feedback = "After"
+                }
+                
+ 
+                
+                    else if dateGuessAsInteger < target2 {
+                        
+                        if monthGuessAsInteger == target1 {
+                    }
+                    feedback = "Before"
+                }
+                
+            
+                    else if dateGuessAsInteger > target2 {
+                        if monthGuessAsInteger == target1 {
+                    }
+                    feedback = "After"
+                }
+                
+                
                 else if dateGuessAsInteger == target2 {
+                    if monthGuessAsInteger == target1 {
+                    }
                     feedback = "Special"
                 }
                 
@@ -94,7 +113,7 @@ struct ContentView: View {
             
         }
         .navigationTitle("SpecialDay")
-        .padding(.horizontal)
+        .padding()
     }
 }
 
